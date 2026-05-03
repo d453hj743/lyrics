@@ -182,6 +182,31 @@ body {
   height: 100%;
 }
 
+/* Timestamp Button Styling */
+.timestamp-btn {
+  background-color: #f0f4ff;
+  color: #4a6cf7;
+  border: 1px solid #d0d7ff;
+  border-radius: 4px;
+  padding: 1px 6px;
+  margin: 0 4px;
+  font-family: monospace;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1.2;
+}
+
+.timestamp-btn:hover {
+  background-color: #4a6cf7;
+  color: #ffffff;
+  border-color: #4a6cf7;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(74, 108, 247, 0.2);
+}
+
 /* Loading states */
 .loading-screen, .loading-content {
   display: flex;
