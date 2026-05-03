@@ -5,7 +5,8 @@
 **作曲**：末益涼太(Elements Garden)  
 **編曲**：竹田祐介(Elements Garden)  
 **発売日**：2019年9月18日
-**https://www.youtube.com/watch?v=x3JGCSTgnIA&list=RDx3JGCSTgnIA&start_radio=1 **
+
+https://www.youtube.com/watch?v=x3JGCSTgnIA&list=RDx3JGCSTgnIA&start_radio=1
 ---
 
 ## 完整歌詞
