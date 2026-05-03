@@ -1,4 +1,4 @@
-# 「ゆら・ゆらRing-Dong-Dance」Pastel＊Palettes 完全詳細解析
+# 「ゆら・ゆらRing-Dong-Dance」Pastel＊Palettes
 
 **歌手**：Pastel＊Palettes  
 **作詞**：織田あすか(Elements Garden)  
