@@ -1,4 +1,5 @@
-import { useState, useEffect, useMemo, useRef, ReactNode } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
+import type { ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import YouTube from 'react-youtube';
