@@ -1,4 +1,4 @@
-# 「きゅ～まい＊flower」Pastel＊Palettes 解析
+# 「きゅ～まい＊flower」Pastel＊Palettes
 
 **歌手**：Pastel＊Palettes  
 **作詞**：織田あすか(Elements Garden)  
