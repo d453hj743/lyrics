@@ -5,6 +5,7 @@
 **作曲・編曲**：菊田大介(Elements Garden)  
 **発売日**：2018年1月17日
 
+https://www.youtube.com/watch?v=IYi3pLHGEo0&list=RDIYi3pLHGEo0&start_radio=1
 ---
 
 ## 完整歌詞
