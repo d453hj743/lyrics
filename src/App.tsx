@@ -1,7 +1,8 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef, ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import YouTube, { YouTubeProps } from 'react-youtube';
+import YouTube from 'react-youtube';
+import type { YouTubeProps } from 'react-youtube';
 import { fetchLyricsList, fetchLyricsContent } from './api';
 import type { GitHubFile } from './api';
 import './App.css';
@@ -17,7 +18,6 @@ function App() {
   
   const playerRef = useRef<any>(null);
 
-  // Helper to extract YouTube ID
   const extractYoutubeId = (text: string) => {
     const patterns = [
       /youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/,
@@ -31,7 +31,6 @@ function App() {
     return null;
   };
 
-  // Convert [mm:ss] to seconds
   const timestampToSeconds = (timestamp: string) => {
     const match = timestamp.match(/\[(\d+):(\d+)\]/);
     if (match) {
@@ -86,25 +85,35 @@ function App() {
 
   const formatName = (name: string) => name.replace(/\.md$/i, '');
 
-  // Custom renderer for text to detect [mm:ss]
-  const renderText = (text: string) => {
-    const parts = text.split(/(\[\d+:\d+\])/g);
-    return parts.map((part, index) => {
-      if (part.match(/\[\d+:\d+\]/)) {
-        const seconds = timestampToSeconds(part);
-        return (
-          <button 
-            key={index} 
-            className="timestamp-btn" 
-            onClick={() => seekTo(seconds)}
-            title={`Jump to ${part}`}
-          >
-            {part}
-          </button>
-        );
-      }
-      return part;
-    });
+  // Improved text processor that handles timestamp nodes
+  const processNodes = (nodes: ReactNode): ReactNode => {
+    if (typeof nodes === 'string') {
+      const parts = nodes.split(/(\[\d+:\d+\])/g);
+      return parts.map((part, index) => {
+        if (part.match(/\[\d+:\d+\]/)) {
+          const seconds = timestampToSeconds(part);
+          return (
+            <button 
+              key={index} 
+              className="timestamp-btn" 
+              onClick={(e) => {
+                e.preventDefault();
+                seekTo(seconds);
+              }}
+            >
+              {part}
+            </button>
+          );
+        }
+        return part;
+      });
+    }
+    
+    if (Array.isArray(nodes)) {
+      return nodes.map((node, index) => <span key={index}>{processNodes(node)}</span>);
+    }
+
+    return nodes;
   };
 
   const onPlayerReady: YouTubeProps['onReady'] = (event) => {
@@ -156,13 +165,15 @@ function App() {
             <ReactMarkdown 
               remarkPlugins={[remarkGfm]}
               components={{
-                // Apply timestamp detection to paragraphs and table cells
-                p: ({ children }) => <p>{Array.isArray(children) ? children.map(c => typeof c === 'string' ? renderText(c) : c) : (typeof children === 'string' ? renderText(children) : children)}</p>,
-                td: ({ children }) => <td>{Array.isArray(children) ? children.map(c => typeof c === 'string' ? renderText(c) : c) : (typeof children === 'string' ? renderText(children) : children)}</td>,
-                th: ({ children }) => <th>{Array.isArray(children) ? children.map(c => typeof c === 'string' ? renderText(c) : c) : (typeof children === 'string' ? renderText(children) : children)}</th>,
-                h1: ({ children }) => <h1>{Array.isArray(children) ? children.map(c => typeof c === 'string' ? renderText(c) : c) : (typeof children === 'string' ? renderText(children) : children)}</h1>,
-                h2: ({ children }) => <h2>{Array.isArray(children) ? children.map(c => typeof c === 'string' ? renderText(c) : c) : (typeof children === 'string' ? renderText(children) : children)}</h2>,
-                h3: ({ children }) => <h3>{Array.isArray(children) ? children.map(c => typeof c === 'string' ? renderText(c) : c) : (typeof children === 'string' ? renderText(children) : children)}</h3>,
+                p: ({ children }) => <p>{processNodes(children)}</p>,
+                td: ({ children }) => <td>{processNodes(children)}</td>,
+                th: ({ children }) => <th>{processNodes(children)}</th>,
+                h1: ({ children }) => <h1>{processNodes(children)}</h1>,
+                h2: ({ children }) => <h2>{processNodes(children)}</h2>,
+                h3: ({ children }) => <h3>{processNodes(children)}</h3>,
+                li: ({ children }) => <li>{processNodes(children)}</li>,
+                strong: ({ children }) => <strong>{processNodes(children)}</strong>,
+                em: ({ children }) => <em>{processNodes(children)}</em>,
               }}
             >
               {content}
