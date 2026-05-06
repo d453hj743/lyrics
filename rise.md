@@ -5,7 +5,7 @@
 **作詞**：安月名莉子、hotaru
 **作曲・編曲**：栁舘周平
 
-**YouTube**: https://www.youtube.com/watch?v=FjIuC2V0p4Y
+https://www.youtube.com/watch?v=FjIuC2V0p4Y
 
 ---
 
